@@ -99,9 +99,13 @@ public class IndexController {
 	
 	@RequestMapping("/books/{id}")
 	public @ResponseBody Collection<Book> listBooksOfAuthor(@PathVariable Integer id) throws AuthorNotFoundException {
-		List<Author> authors = manager.queryAuthors().stream().filter(a -> a.getAuthorID() == id).collect(Collectors.toList());
+		/*List<Author> authors = manager.queryAuthors().stream().filter(a -> a.getAuthorID() == id).collect(Collectors.toList());
 		if (authors.size() == 1)
-			return manager.queryBooks(authors.get(0));
+			return manager.queryBooks(authors.get(0));*/
+		for (Author author : manager.queryAuthors()) {
+			if (author.getAuthorID() == id)
+				return manager.queryBooks(author);
+		}
 		throw new AuthorNotFoundException();
 	}
 	
