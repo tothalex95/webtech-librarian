@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>New Author</title>
+</head>
+<body>
+	<form action="author/update" id="author" method="POST">
+		<input type="hidden" name="authorID" id="authorID" />
+		<table>
+			<caption>New Author</caption>
+			<tr>
+				<td><label>Name: </label></td>
+				<td><input type="text" name="name" /><br /></td>
+			</tr>
+			<tr>
+				<td><label>Nationality: </label></td>
+				<td><select name="nationality">
+						<option value="Hungarian">Hungarian</option>
+						<option value="British">British</option>
+						<option value="American">American</option>
+						<option value="Spanish">Spanish</option>
+						<option value="Russian">Russian</option>
+				</select><br /></td>
+			</tr>
+			<tr>
+				<td><label>Birth Date: </label></td>
+				<td><input type="date" name="birthDate" /><br /></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" value="Insert" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var idCookie = getCookie('id');
+		var targetUrl = 'author/insert';
+		if (idCookie != '') {
+			$('input[type=submit]').val('Update');
+			$('title').html('Update Author');
+			$('caption').html('Update Author');
+			targetUrl = 'author/update'
+			$.getJSON('authors', function(data) {
+				$.each(data, function(key, value) {
+					if (value['authorID'] == idCookie) {
+						$('#authorID').val(value['authorID']);
+						$('input[name=name]').val(value['name']);
+						$('select[name=nationality]').val(value['nationality']);
+						var bd = new Date(value['birthDate']);
+						$('input[name=birthDate]').val(getValidDateString(bd));
+						setCookie('id', idCookie, 0)
+						return false;
+					}
+				});
+			});
+		}
+		$('#author').submit(function(e) {
+			e.preventDefault();
+			var authorData = JSON.stringify($('#author').serializeObject());
+			$.ajax({
+				contentType : 'application/json',
+				//dataType: 'json',
+				type : 'POST',
+				url : targetUrl,
+				data : authorData,
+				processData : false,
+				success : function() {
+					alert('Success.');
+					$('#content').load('listauthors');
+				},
+				error : function() {
+					alert('Failure.');
+				}
+			});
+		});
+	});
+</script>
+</html>

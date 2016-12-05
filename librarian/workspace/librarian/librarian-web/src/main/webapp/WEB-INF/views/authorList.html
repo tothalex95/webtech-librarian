@@ -1,0 +1,28 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.getJSON('authors', function(data) {
+			var table = $('<table><caption>List of Authors</caption><tr><th>Name</th><th>Nationality</th><th>Birth Date</th><th>Update</th><th>Books</th></tr></table>');
+			$.each(data, function(key, value) {
+					var row = $('<tr></tr>');
+					var nameCell = $('<td>'
+							+ value['name'] + '</td>');
+					var nationCell = $('<td>'
+							+ value['nationality']
+							+ '</td>');
+					var birthDateCell = $('<td>'
+							+ convertDate(new Date(
+									value['birthDate']))
+							+ '</td>');
+					var updateCell = $('<td><button onclick=buttonClicked("' + value['authorID'] + ':updateauthor")>Update</button></td>');
+					var booksCell = $('<td><button onclick=buttonClicked("' + value['authorID'] + ':listbooks")>Books</button></td>');
+					$(row).append(nameCell);
+					$(row).append(nationCell);
+					$(row).append(birthDateCell);
+					$(row).append(updateCell);
+					$(row).append(booksCell);
+					$(table).append(row);
+				});
+				$('#content').append(table);
+			});
+	});
+</script>

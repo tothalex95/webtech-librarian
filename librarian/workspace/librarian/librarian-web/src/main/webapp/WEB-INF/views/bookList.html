@@ -1,0 +1,38 @@
+<script type="text/javascript">
+	var request = 'books';
+	var idCookie = getCookie('id');
+	if (idCookie != '') {
+		request += '/' + idCookie;
+		setCookie('id', idCookie, 0);
+	}
+	$.getJSON(request, function(data) {
+		var table = $('<table><caption>List of Books</caption><tr><th>Title</th><th>Genres</th><th>Authors</th><th>Update</th></tr></table>');
+		$.each(data, function(key, value) {
+			var row = $('<tr></tr>');
+			var titleCell = $('<td>' + value['title'] + '</td>');
+			var genresCell = $('<td></td>');
+			var ul = $('<ul></ul>');
+			for (var genre in value['genres']) {
+				var li = $('<li></li>');
+				li.append(value['genres'][genre]);
+				ul.append(li);
+			};
+			genresCell.append(ul);
+			var authorsCell = $('<td></td>');
+			ul = $('<ul></ul>');
+			for (var author in value['authors']) {
+				var li = $('<li></li>');
+				li.append(value['authors'][author].name);
+				ul.append(li);
+			};
+			var updateCell = $('<td><button onclick=buttonClicked("' + value['bookId'] + ':updatebook")>Update</button></td>');
+			authorsCell.append(ul);
+			$(row).append(titleCell);
+			$(row).append(genresCell);
+			$(row).append(authorsCell);
+			$(row).append(updateCell);
+			$(table).append(row);
+		});
+		$('#content').append(table);
+	});
+</script>

@@ -1,5 +1,73 @@
 <html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/myStyle.css" />
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#content').load('home');
+		$.each($('a'), function(mbIndex, mbValue) {
+			$(mbValue).click(function(event) {
+				event.preventDefault();
+				$('#content').load($(this).attr('href'));
+			});
+		});
+	});
+</script>
+<title>Home</title>
+</head>
 <body>
-<h2>Hello World!</h2>
+	<div id="header">
+		<div id="iitLogo"></div>
+		<div id="meLogo"></div>
+		<div id="banner">
+			<h1>Alex Toth, ZVW5W2, Webtechnologies I.</h1>
+		</div>
+		<div id="menubar">
+			<div class="dropdown">
+				<a href="home"><button class="dropButton">Home</button></a>
+			</div>
+			<div class="dropdown">
+				<button class="dropButton">Author</button>
+				<div class="dropdownContent">
+					<a href=listauthors>List of Authors</a>
+					<a href="newauthor">New Author</a>
+				</div>
+			</div>
+			<div class="dropdown">
+				<button class="dropButton">Book</button>
+				<div class="dropdownContent">
+					<a href="listbooks">List of Books</a>
+					<a href="newbook">New Book</a>
+				</div>
+			</div>
+			<div class="dropdown">
+				<a href="about"><button class="dropButton">About</button></a>
+			</div>
+		</div>
+	</div>
+	<div id="pageBody">
+		<div id="newsPanel">
+			<div class="newsBubble">
+				<h1>title1</h1>
+				<p>teaser1</p>
+			</div>
+			<div class="newsBubble">
+				<h1>title2</h1>
+				<p>teaser2</p>
+			</div>
+			<div class="newsBubble">
+				<h1>title3</h1>
+				<p>teaser3</p>
+			</div>
+		</div>
+		<div id="content">
+			
+		</div>
+		<div id="footer">
+			<p>Alex Toth, ZVW5W2, Webtechnologies I.</p>
+		</div>
+	</div>
 </body>
 </html>

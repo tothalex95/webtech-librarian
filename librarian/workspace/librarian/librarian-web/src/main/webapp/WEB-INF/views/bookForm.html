@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+.alert {
+	color: white;
+	font-family: Courier New;
+	text-align: center;
+	margin: auto;
+	width: 500px;
+	border-radius: 20px;
+	box-shadow: 10px 10px 10px gray;
+	display: none;
+}
+</style>
+<title>New Book</title>
+</head>
+<body>
+	<p class="alert" style="background-color: red;"></p>
+	<form action="book/update" id="book" method="POST">
+		<input type="hidden" name="bookId" id="bookId" />
+		<table>
+			<caption>New Book</caption>
+			<tr>
+				<td><label>Title: </label></td>
+				<td><input type="text" name="title" /><br /></td>
+			</tr>
+			<tr>
+				<td><label>Genres: </label></td>
+				<td>
+					<input type="checkbox" name="genres" value="Novel">Novel<br />
+					<input type="checkbox" name="genres" value="Romance">Romance<br />
+					<input type="checkbox" name="genres" value="SciFi">SciFi
+				</td>
+			</tr>
+			<tr>
+				<td><label>Authors: </label></td>
+				<td id="authorsCell"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" value="Insert" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+<script type="text/javascript">
+	$.fn.serializeBookObject = function() {
+		var o = {};
+		var a = this.serializeArray();
+		$.each(a, function() {
+			if (o[this.name] !== undefined) {
+				if (!o[this.name].push) {
+					o[this.name] = [ o[this.name] ];
+				}
+				if (this.name === 'authors') {
+					o[this.name].push(JSON.parse(this.value) || '');
+				} else {
+					o[this.name].push(this.value || '');
+				}
+			} else {
+				if (this.name === 'authors') {
+					o[this.name] = JSON.parse(this.value) || '';
+					o[this.name] = [ o[this.name] ];
+				} else if (this.name === 'genres') {
+					o[this.name] = this.value || '';
+					o[this.name] = [ o[this.name] ];
+				} else {
+					o[this.name] = this.value || '';
+				}
+			}
+		});
+		return o;
+	};
+	$(document).ready(function() {
+		$.getJSON('authors', function(data){
+			$.each(data, function(key, value) {
+				var inputField = $('<input type="checkbox" name="authors">');
+				inputField.val(JSON.stringify(value));
+				$('#authorsCell').append(inputField);
+				$('#authorsCell').append(value.name + '<br />');
+			});
+		});
+		var idCookie = getCookie('id');
+		var targetUrl = 'book/insert';
+		if (idCookie != '') {
+			$('input[type=submit]').val('Update');
+			$('title').html('Update Book');
+			$('caption').html('Update Book');
+			targetUrl = 'book/update'
+			$.getJSON('books', function(data) {
+				$.each(data, function(key, value) {
+					if (value['bookId'] == idCookie) {
+						$('#bookId').val(value['bookId']);
+						$('input[name=title]').val(value['title']);
+						for (var g in value.genres) {
+							$('input[value="' + value.genres[g] + '"]').attr('checked', true);
+						}
+						for (var a in value.authors) {
+							$("input[value='" + JSON.stringify(value.authors[a]) + "']").attr('checked', true);
+						}
+						setCookie('id', idCookie, 0)
+						return false;
+					}
+				});
+			});
+		} else {
+			$('.alert').append('This function doesn\'t work properly, backend implementation is missing.<br />');
+			$('.alert').append($('<button id="hideAlertButton" align="center">Got It!</button>'));
+			$('.alert').show();
+		}
+		$('#book').submit(function(e) {
+			e.preventDefault();
+			var bookData = JSON.stringify($('#book').serializeBookObject());
+ 			$.ajax({
+ 				contentType : 'application/json',
+ 				//dataType: 'json',
+ 				type : 'POST',
+ 				url : targetUrl,
+ 				data : bookData,
+ 				processData : false,
+ 				success : function() {
+ 					alert('Success.');
+ 					$('#content').load('listbooks');
+ 				},
+ 				error : function() {
+ 					alert('Failure.');
+ 				}
+ 			});
+		});
+		$('#hideAlertButton').click(function() {
+			$('.alert').hide();
+			return false;
+		});
+	});
+</script>
+</html>

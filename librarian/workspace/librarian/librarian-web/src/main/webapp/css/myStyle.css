@@ -1,0 +1,192 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: black;
+	margin: 20px;
+}
+
+table {
+	max-width: 600px;
+}
+
+table, th, td {
+	border-collapse: collapse;
+	margin: auto;
+	padding: 15px;
+}
+
+caption {
+	font-size: 50px;
+}
+
+th {
+	background-color: gray;
+	color: white;
+}
+
+tr:nth-child(odd) {
+	background-color: white;
+}
+
+tr:nth-child(even) {
+	background-color: lightgray;
+}
+
+tr:hover {
+	background-color: darkgray;
+}
+
+#header {
+	width: 1024px;
+	background-color: black;
+	height: 200px;
+	margin: auto;
+}
+
+#iitLogo {
+	background-image: url("../img/iitLogo.png");
+	width: 150px;
+	height: 150px;
+	float: left;
+}
+
+#meLogo {
+	background-image: url("../img/iitLogo.png");
+	width: 150px;
+	height: 150px;
+	float: right;
+}
+
+#banner {
+	width: 724px;
+	height: 150px;
+	background-color: silver;
+	margin: auto;
+	border-radius: 100px;
+}
+
+#banner h1 {
+	padding: 50px 5px;
+	font-family: "Courier New";
+	color: white;
+}
+
+#menubar {
+	width: 550px;
+	height: 50px;
+	background: #f0f0f0;
+	margin: 20px auto;
+	border-radius: 10px;
+	padding: 0px 50px;
+}
+
+#pageBody {
+	width: 1024px;
+	margin: 40px auto;
+}
+
+#newsPanel {
+	margin: 0px 50px;
+	float: right;
+	width: 150px;
+	/*background-color: silver;*/
+	min-height: 500px;
+	padding: 50px 0px;
+}
+
+.newsBubble {
+	border: 3px solid gray;
+	border-radius: 10px;
+	margin: 10px;
+	background-color: #d8d8d8;
+	box-shadow: 5px 5px 5px silver;
+}
+
+.newsBubble h1 {
+	background: gray;
+	font-size: 24px;
+	font-weight: normal;
+	color: white;
+	text-align: center;
+}
+
+.newsBubble p {
+	font-style: italic;
+	font-size: 12px;
+	color: black;
+	padding: 5px;
+}
+
+#content {
+	width: 924px;
+	background-color: #f0f0f0;
+	min-height: 500px;
+	border-radius: 50px;
+	padding: 50px;
+}
+
+#content p {
+	max-height: 250px;
+	overflow-y: auto;
+	padding: 25px 50px;
+	background-color: white;
+}
+
+#footer {
+	width: 1024px;
+	border-radius: 20px;
+	background-color: darkgray;
+}
+
+#footer p {
+	padding: 20px;
+	text-align: center;
+	color: white;
+	font-family: Courier New;
+}
+
+.dropButton {
+	background-color: darkgray;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+	width: 130px;
+	border-radius: 10px;
+	font-family: Couriew New;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdownContent {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 130px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+	border-radius: 10px;
+}
+
+.dropdownContent a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdownContent a:hover {
+	background-color: #f1f1f1;
+	border-radius: 10px;
+}
+
+.dropdown:hover .dropdownContent {
+	display: block;
+}
+
+.dropdown:hover .dropButton {
+	background-color: gray;
+}
