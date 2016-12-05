@@ -5,6 +5,7 @@
 <title>New Author</title>
 </head>
 <body>
+	<p class="notification"></p>
 	<form action="author/update" id="author" method="POST">
 		<input type="hidden" name="authorID" id="authorID" />
 		<table>
@@ -66,15 +67,21 @@
 				url : targetUrl,
 				data : authorData,
 				processData : false,
-				success : function() {
-					alert('Success.');
-					$('#content').load('listauthors');
+				success : function(data, textStatus, jqXHR) {
+					$('.notification').css('background-color', 'green');
+ 					$('.notification').html('Success!<br />' + jqXHR.responseText + '<br />');
+ 					$('.notification').append($('<button onclick="hideNotification()">OK!</button>'));
+ 					$('.notification').show();
 				},
-				error : function() {
-					alert('Failure.');
+				error : function(jqXHR, textStatus, errorThrown) {
+					$('.notification').css('background-color', 'red');
+					$('.notification').html('Failure!<br />' + jqXHR.responseText + '<br />');
+ 					$('.notification').append($('<button onclick="hideNotification()">OK!</button>'));
+ 					$('.notification').show();
 				}
 			});
 		});
+		$('#hideNotificationButton').click(hideNotification);
 	});
 </script>
 </html>

@@ -11,22 +11,22 @@
 			var row = $('<tr></tr>');
 			var titleCell = $('<td>' + value['title'] + '</td>');
 			var genresCell = $('<td></td>');
-			var ul = $('<ul></ul>');
+			var list = $('<ul></ul>');
 			for (var genre in value['genres']) {
-				var li = $('<li></li>');
-				li.append(value['genres'][genre]);
-				ul.append(li);
+				var listItem = $('<li></li>');
+				listItem.append(value['genres'][genre]);
+				list.append(listItem);
 			};
-			genresCell.append(ul);
+			genresCell.append(list);
 			var authorsCell = $('<td></td>');
-			ul = $('<ul></ul>');
+			list = $('<ul></ul>');
 			for (var author in value['authors']) {
-				var li = $('<li></li>');
-				li.append(value['authors'][author].name);
-				ul.append(li);
+				var listItem = $('<li></li>');
+				listItem.append(value['authors'][author].name);
+				list.append(listItem);
 			};
-			var updateCell = $('<td><button onclick=buttonClicked("' + value['bookId'] + ':updatebook")>Update</button></td>');
-			authorsCell.append(ul);
+			var updateCell = $('<td><button onclick=loadPage("' + value['bookId'] + ':updatebook")>Update</button></td>');
+			authorsCell.append(list);
 			$(row).append(titleCell);
 			$(row).append(genresCell);
 			$(row).append(authorsCell);

@@ -36,6 +36,18 @@ tr:hover {
 	background-color: darkgray;
 }
 
+.notification {
+	color: white;
+	font-family: Courier New;
+	text-align: center;
+	margin: auto;
+	width: 500px;
+	border-radius: 20px;
+	box-shadow: 10px 10px 10px gray;
+	display: none;
+	text-align: center;
+}
+
 #header {
 	width: 1024px;
 	background-color: black;

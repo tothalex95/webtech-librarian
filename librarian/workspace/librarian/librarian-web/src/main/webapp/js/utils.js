@@ -35,13 +35,13 @@ $.fn.serializeObject = function() {
 		}
 	});
 	return o;
-};
+}
 
 function getParameter(name) {
 	if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)'))
 			.exec(location.search))
 		return decodeURIComponent(name[1]);
-};
+}
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -75,9 +75,12 @@ function getValidDateString(date) {
 	return yearStr + '-' + monthStr + '-' + dayStr;
 }
 
-function buttonClicked(target) {
+function loadPage(target) {
 	var splittedTarget = target.split(':');
-	console.log(splittedTarget[0] + ' ---> ' + splittedTarget[1]);
 	setCookie('id', splittedTarget[0], 1);
 	$('#content').load(splittedTarget[1]);
-};
+}
+
+function hideNotification() {
+	$('.notification').hide();
+}

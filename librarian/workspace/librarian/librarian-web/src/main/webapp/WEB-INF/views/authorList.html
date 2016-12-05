@@ -13,8 +13,8 @@
 							+ convertDate(new Date(
 									value['birthDate']))
 							+ '</td>');
-					var updateCell = $('<td><button onclick=buttonClicked("' + value['authorID'] + ':updateauthor")>Update</button></td>');
-					var booksCell = $('<td><button onclick=buttonClicked("' + value['authorID'] + ':listbooks")>Books</button></td>');
+					var updateCell = $('<td><button onclick=loadPage("' + value['authorID'] + ':updateauthor")>Update</button></td>');
+					var booksCell = $('<td><button onclick=loadPage("' + value['authorID'] + ':listbooks")>Books</button></td>');
 					$(row).append(nameCell);
 					$(row).append(nationCell);
 					$(row).append(birthDateCell);
