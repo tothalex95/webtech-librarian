@@ -2,7 +2,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>New Author</title>
 </head>
 <body>
 	<p class="notification"></p>
@@ -38,6 +37,7 @@
 	$(document).ready(function() {
 		var idCookie = getCookie('id');
 		var targetUrl = 'author/insert';
+		$('title').html('New Author');
 		if (idCookie != '') {
 			$('input[type=submit]').val('Update');
 			$('title').html('Update Author');

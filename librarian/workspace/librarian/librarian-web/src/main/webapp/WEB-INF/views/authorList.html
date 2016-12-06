@@ -1,5 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
+		$('title').html('List of Authors');
 		$.getJSON('authors', function(data) {
 			var table = $('<table><caption>List of Authors</caption><tr><th>Name</th><th>Nationality</th><th>Birth Date</th><th>Update</th><th>Books</th></tr></table>');
 			$.each(data, function(key, value) {

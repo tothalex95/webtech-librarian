@@ -2,7 +2,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>New Book</title>
 </head>
 <body>
 	<p class="notification"></p>
@@ -71,6 +70,7 @@
 		});
 		var idCookie = getCookie('id');
 		var targetUrl = 'book/insert';
+		$('title').html('New Book');
 		if (idCookie != '') {
 			$('input[type=submit]').val('Update');
 			$('title').html('Update Book');
